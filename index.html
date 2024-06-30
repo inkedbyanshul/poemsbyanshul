@@ -5,7 +5,113 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LIFE IS GOOD AS HELL</title>
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    nav li {
+      margin-right: 20px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: #ccc;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .poem-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .poem {
+      background-color: #fff;
+      padding: 20px;
+      margin: 20px;
+      width: calc(33.33% - 20px);
+    }
+
+    .poem h3 {
+      margin-top: 0;
+    }
+
+    .likes-comments {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .likes-comments span {
+      margin-right: 10px;
+    }
+
+    .comment-form {
+      margin-top: 20px;
+    }
+
+    .comment-form input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .comment-form button[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .comment-form button[type="submit"]:hover {
+      background-color: #444;
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      clear: both;
+    }
+  </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
 <body>
@@ -53,11 +159,45 @@
       <p>I'm a poet and writer, and I'm passionate about sharing my words with the world.</p>
     </section>
   </main>
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2023 LIFE IS GOOD AS HELL</p>
-  </footer>
-  <!-- JavaScript -->
-  <script src="script.js"></script>
+    </footer>
+  <!-- Script -->
+  <script>
+    // Add event listeners to comment forms
+    document.querySelectorAll('.comment-form').forEach(form => {
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        const commentInput = form.querySelector('input[type="text"]');
+        const commentText = commentInput.value.trim();
+        if (commentText !== '') {
+          // Add comment to poem
+          const poem = form.closest('.poem');
+          const commentsContainer = poem.querySelector('.comments');
+          const newComment = document.createElement('div');
+          newComment.className = 'comment';
+          newComment.textContent = commentText;
+          commentsContainer.appendChild(newComment);
+          // Update comment count
+          const commentCount = poem.querySelector('.likes-comments span:nth-child(2)');
+          const currentCount = parseInt(commentCount.textContent.split(' ')[0]);
+          commentCount.textContent = `${currentCount + 1} comments`;
+          // Clear input field
+          commentInput.value = '';
+        }
+      });
+    });
+
+    // Add event listeners to like buttons
+    document.querySelectorAll('.likes-comments span:nth-child(1)').forEach(likeButton => {
+      likeButton.addEventListener('click', event => {
+        const poem = likeButton.closest('.poem');
+        const likeCount = poem.querySelector('.likes-comments span:nth-child(1)');
+        const currentCount = parseInt(likeCount.textContent.split(' ')[0]);
+        likeCount.textContent = `${currentCount + 1} likes`;
+      });
+    });
+  </script>
 </body>
 </html>
+
+
+      
