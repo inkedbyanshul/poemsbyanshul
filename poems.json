@@ -1,0 +1,24 @@
+// If you want to store poems in a database or file, you can use this script to fetch and display them
+const poemsContainer = document.querySelector('.poem-container');
+
+fetch('poems.json')
+  .then(response => response.json())
+  .then(poems => {
+    poems.forEach(poem => {
+      const poemHTML = `
+        <div class="poem">
+          <h3>${poem.title}</h3>
+          <p>${poem.content}</p>
+          <div class="likes-comments">
+            <span><i class="fas fa-heart"></i> ${poem.likes} likes</span>
+            <span><i class="fas fa-comment"></i> ${poem.comments} comments</span>
+          </div>
+          <form class="comment-form">
+            <input type="text" placeholder="Add a comment...">
+            <button type="submit">Post</button>
+          </form>
+        </div>
+      `;
+      poemsContainer.innerHTML += poemHTML;
+    });
+  });
